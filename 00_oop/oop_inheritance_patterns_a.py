@@ -44,16 +44,3 @@ class User(Account):
 # type: type[Account]
 class Admin(Account):
     pass
-
-
-# Solution
-class Account:
-    pass
-
-
-class User(Account):
-    pass
-
-
-class Admin(Account):
-    pass

@@ -76,7 +76,7 @@ class Admin(Account):
 # Define class `MyAccount` with attribute `type: Account`
 # Allow for setting type `User` or `Admin` in `__init__()` method
 class MyAccount:
-    type: Account
+    type_: Account
 
-    def __init__(self, type: Account = Account):
-        self.type = type()
+    def __init__(self, type_: Account = Account):
+        self.type = type_()
