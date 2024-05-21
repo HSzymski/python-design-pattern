@@ -4,17 +4,17 @@ global point of access to it.
 """
 
 
-class Singleton:
+class SingletonClass:
     _instance = None
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
-            cls._instance = super(Singleton, cls).__new__(cls, *args, **kwargs)
+            cls._instance = super(SingletonClass, cls).__new__(cls, *args, **kwargs)
         return cls._instance
 
 
-s1 = Singleton()
-s2 = Singleton()
+s1 = SingletonClass()
+s2 = SingletonClass()
 print(s1 is s2)
 
 
@@ -31,4 +31,19 @@ def singleton_decorator(class_):
 
 @singleton_decorator
 class SomeClass:
+    ...
+
+
+# Singleton using metaclass:
+
+class Singleton(type):
+    instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls.instances:
+            cls.instances[cls] = super().__call__(*args, **kwargs)
+        return cls.instances[cls]
+
+
+class Settings(metaclass=Singleton):
     ...
