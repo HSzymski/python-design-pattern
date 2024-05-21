@@ -36,7 +36,7 @@ class SomeClass:
 
 # Singleton using metaclass:
 
-class Singleton(type):
+class Singleton(type):  # https://stackoverflow.com/questions/100003/what-are-metaclasses-in-python
     instances = {}
 
     def __call__(cls, *args, **kwargs):
