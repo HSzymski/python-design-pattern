@@ -1,6 +1,10 @@
 """
 The Abstract Factory design pattern is a creational design pattern that provides an interface for creating families of
 related or dependent objects without specifying their concrete classes.
+
+Problems:
+- Hard to add a new theme
+- Violates Open/Close Principle
 """
 
 
