@@ -16,7 +16,7 @@ Tests:
     >>> import sys; sys.tracebacklimit = 0
     >>> from pprint import pprint
 
-    >>> main(Platform.iOS)
+    >>> main(Platform.IOS)
     iOS Textbox username
     iOS Textbox password
     iOS Button submit
@@ -28,6 +28,7 @@ Tests:
 """
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
+from enum import Enum
 
 
 class ElementFactory(ABC):
@@ -46,11 +47,11 @@ class Textbox(ElementFactory):
 
 class OS(ABC):
     @abstractmethod
-    def create_button(self) -> Button:
+    def create_button(self, name: str) -> Button:
         raise NotImplementedError
 
     @abstractmethod
-    def create_textbox(self) -> Textbox:
+    def create_textbox(self, name: str) -> Textbox:
         raise NotImplementedError
 
 
@@ -86,15 +87,30 @@ class TextboxAndroid(Textbox):
         print(f'Android Textbox {self.name}')
 
 
-class CreateApp:
-    def render(self, platform: Platform):
-        platform.create_button().render()
-        platform.create_textbox().render()
+class Android(OS):
+    def create_button(self, name: str) -> Button:
+        return ButtonAndroid(name)
+
+    def create_textbox(self, name: str) -> Textbox:
+        return TextboxAndroid(name)
+
+
+class IOS(OS):
+    def create_button(self, name: str) -> Button:
+        return ButtonIOS(name)
+
+    def create_textbox(self, name: str) -> Textbox:
+        return TextboxIOS(name)
+
+
+class Platform(Enum):
+    IOS = IOS()
+    Android = Android()
 
 
 def main(platform: Platform):
-    #TODO: END THAT TASK
-    Textbox('username').render(platform)
-    Textbox('password').render(platform)
-    Button('submit').render(platform)
+    os = platform.value
+    os.create_textbox('username').render()
+    os.create_textbox('password').render()
+    os.create_button('submit').render()
 
